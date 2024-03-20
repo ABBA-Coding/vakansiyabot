@@ -16,7 +16,7 @@ def reaction_start(message: Message):
     chat_id = message.chat.id
     first_name = message.from_user.first_name
     bot.send_message(chat_id,
-                     f"Assalomualeykum {first_name} Abba Marketing Vakansiya Botiman\nЗдравствуйте {first_name} Я бот Abba Marketing Vacancy.")
+                     f"Assalomualeykum,Abba marketing vakansiya botiman\nЗдравствуйте, я бот Abba marketing vacancy.")
     bot.send_message(chat_id, "Muloqot tilini tanlang:🇺🇿\nВыберите язык:🇷🇺", reply_markup=main_btn())
 
 
