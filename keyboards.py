@@ -27,6 +27,11 @@ def send_contact():
     markup.add(KeyboardButton("Raqam jo'natish",request_contact=True))
 
     return markup
+def send_contact1():
+    markup = ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add(KeyboardButton("Отправить номер",request_contact=True))
+
+    return markup
 
 
 

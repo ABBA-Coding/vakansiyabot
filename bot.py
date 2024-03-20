@@ -30,7 +30,7 @@ def start(message):
 def save_name(message):
     user_id = message.chat.id
     user_info[user_id]["name"] = message.text
-    bot.send_message(user_id, "Raqamingizni jo'nating",reply_markup=send_contact())
+    bot.send_message(user_id, "Raqamingizni jo'nating", reply_markup=send_contact())
     bot.register_next_step_handler(message, save_phone)
 
 
@@ -44,7 +44,8 @@ def save_phone(message):
 def save_job(message):
     user_id = message.chat.id
     user_info[user_id]["job"] = message.text
-    bot.send_message(user_id, "Rezyumeyingizni jo'nating (PDF, JPEG, yoki PNG formatda):",reply_markup=ReplyKeyboardRemove())
+    bot.send_message(user_id, "Rezyumeyingizni jo'nating (PDF, JPEG, yoki PNG formatda):",
+                     reply_markup=ReplyKeyboardRemove())
     bot.register_next_step_handler(message, save_resume)
 
 
@@ -72,6 +73,7 @@ def send_to_channel(user_id):
             return
     bot.send_message(user_id, "Hamma ma'lumotlarni yozing!")
 
+
 @bot.message_handler(func=lambda message: message.text == '🇷🇺 Ru | Ру 🇷🇺')
 def start(message):
     user_info[message.chat.id] = {}
@@ -82,13 +84,13 @@ def start(message):
 def save_name1(message):
     user_id = message.chat.id
     user_info[user_id]["name"] = message.text
-    bot.send_message(user_id, "Пожалуйста, введите ваш номер телефона:")
+    bot.send_message(user_id, "Пожалуйста, введите ваш номер телефона:", reply_markup=send_contact1())
     bot.register_next_step_handler(message, save_phone1)
 
 
 def save_phone1(message):
     user_id = message.chat.id
-    user_info[user_id]["phone"] = message.text
+    user_info[user_id]["phone"] = message.contact.phone_number
     bot.send_message(user_id, "Пожалуйста, выберите работу из списка ниже:", reply_markup=job_selection_markup1())
     bot.register_next_step_handler(message, save_job1)
 
@@ -96,7 +98,8 @@ def save_phone1(message):
 def save_job1(message):
     user_id = message.chat.id
     user_info[user_id]["job"] = message.text
-    bot.send_message(user_id, "Пожалуйста, загрузите ваше резюме (PDF, JPEG, yoki PNG):",reply_markup=ReplyKeyboardRemove())
+    bot.send_message(user_id, "Пожалуйста, загрузите ваше резюме (PDF, JPEG, yoki PNG):",
+                     reply_markup=ReplyKeyboardRemove())
     bot.register_next_step_handler(message, save_resume1)
 
 
@@ -123,7 +126,6 @@ def send_to_channel1(user_id):
             bot.send_message(user_id, "Ваша информация отправлена в канал.")
             return
     bot.send_message(user_id, "Вы не предоставили полную информацию.")
-
 
 
 bot.polling()
