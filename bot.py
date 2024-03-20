@@ -30,13 +30,13 @@ def start(message):
 def save_name(message):
     user_id = message.chat.id
     user_info[user_id]["name"] = message.text
-    bot.send_message(user_id, "Raqamingizni jo'nating")
+    bot.send_message(user_id, "Raqamingizni jo'nating",reply_markup=send_contact())
     bot.register_next_step_handler(message, save_phone)
 
 
 def save_phone(message):
     user_id = message.chat.id
-    user_info[user_id]["phone"] = message.text
+    user_info[user_id]["phone"] = message.contact.phone_number
     bot.send_message(user_id, "Pastdagi yo'nalishlardan birini tanlang", reply_markup=job_selection_markup())
     bot.register_next_step_handler(message, save_job)
 
