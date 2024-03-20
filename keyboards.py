@@ -15,6 +15,13 @@ def job_selection_markup():
 
     return markup
 
+def job_selection_markup1():
+    markup = ReplyKeyboardMarkup(row_width=2)
+    markup.add(KeyboardButton("СММ"), KeyboardButton("Брендинг"), KeyboardButton("Программирование"),
+           KeyboardButton("Другое направление"))
+
+    return markup
+
 def send_contact():
     markup = ReplyKeyboardMarkup(resize_keyboard=True)
     markup.add(KeyboardButton("Raqam jo'natish",request_contact=True))

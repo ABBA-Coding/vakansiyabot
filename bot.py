@@ -89,7 +89,7 @@ def save_name1(message):
 def save_phone1(message):
     user_id = message.chat.id
     user_info[user_id]["phone"] = message.text
-    bot.send_message(user_id, "Пожалуйста, выберите работу из списка ниже:", reply_markup=job_selection_markup())
+    bot.send_message(user_id, "Пожалуйста, выберите работу из списка ниже:", reply_markup=job_selection_markup1())
     bot.register_next_step_handler(message, save_job1)
 
 
