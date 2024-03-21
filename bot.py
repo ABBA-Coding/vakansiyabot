@@ -38,11 +38,11 @@ def save_phone(message):
     user_id = message.chat.id
     user_info[user_id]["phone"] = message.contact.phone_number
     bot.send_message(user_id, "Pastdagi yo'nalishlardan birini tanlang", reply_markup=job_selection_markup())
-    bot.register_next_step_handler(message, save_job)
+    bot.register_next_step_handler(message, user_photo)
 
 
 
-def other_job(message:Message):
+def user_photo(message:Message):
     chat_id = message.chat.id
     bot.send_message(chat_id,"3x4 yoki O'zingizni rasmingizni tashlang")
     user_info[chat_id]['photo'] = message.photo
@@ -101,7 +101,13 @@ def save_phone1(message):
     user_id = message.chat.id
     user_info[user_id]["phone"] = message.contact.phone_number
     bot.send_message(user_id, "Пожалуйста, выберите работу из списка ниже:", reply_markup=job_selection_markup1())
-    bot.register_next_step_handler(message, save_job1)
+    bot.register_next_step_handler(message, user_photo1)
+
+def user_photo1(message:Message):
+    chat_id = message.chat.id
+    bot.send_message(chat_id,"Отправьте фотографию")
+    user_info[chat_id]['photo'] = message.photo
+    bot.register_next_step_handler(message,save_job1)
 
 
 def save_job1(message):
@@ -131,7 +137,8 @@ def send_to_channel1(user_id):
         info = user_info[user_id]
         if all(key in info for key in ["name", "phone", "job", "resume"]):
             text = f"Ism Familyasi: {info['name']}\nTelefon raqam: {info['phone']}\nYo'nalish: {info['job']}\nRezyume: {info['resume']}"
-            bot.send_message(CHANNEL_ID, text)
+            photo = user_info[user_id]['photo']
+            bot.send_photo(CHANNEL_ID,photo,text)
             bot.send_message(user_id, "Ваша информация отправлена в канал.")
             return
     bot.send_message(user_id, "Вы не предоставили полную информацию.")
