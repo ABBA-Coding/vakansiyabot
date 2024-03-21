@@ -41,6 +41,14 @@ def save_phone(message):
     bot.register_next_step_handler(message, save_job)
 
 
+
+def other_job(message:Message):
+    chat_id = message.chat.id
+    bot.send_message(chat_id,"3x4 yoki O'zingizni rasmingizni tashlang")
+    user_info[chat_id]['photo'] = message.photo
+    bot.register_next_step_handler(message,save_job)
+
+
 def save_job(message):
     user_id = message.chat.id
     user_info[user_id]["job"] = message.text
@@ -68,7 +76,8 @@ def send_to_channel(user_id):
         info = user_info[user_id]
         if all(key in info for key in ["name", "phone", "job", "resume"]):
             text = f"Ism Familya: {info['name']}\nTelefon raqam: {info['phone']}\nJob: {info['job']}\nRezyume: {info['resume']}"
-            bot.send_message(CHANNEL_ID, text)
+            photo = user_info[user_id]['photo']
+            bot.send_photo(CHANNEL_ID,photo,caption=text)
             bot.send_message(user_id, "Raxmat! Ma'lumotlaringiz yetkazildi! Tez orada aloqaga chiqamiz")
             return
     bot.send_message(user_id, "Hamma ma'lumotlarni yozing!")
